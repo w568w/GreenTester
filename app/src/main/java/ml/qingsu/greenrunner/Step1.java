@@ -16,6 +16,7 @@ public class Step1 extends WizardStep {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         TextView v = new TextView(getActivity());
+        v.setPadding(5,5,5,5);
         v.setText(R.string.step1);
 
         return v;

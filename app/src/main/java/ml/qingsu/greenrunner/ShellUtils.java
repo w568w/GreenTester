@@ -217,7 +217,11 @@ public class ShellUtils {
             e.printStackTrace();
         }finally{
             if(p!=null){
-                p.destroy();
+                try {
+                    p.destroy();
+                }catch (Throwable throwable)
+                {}
+
             }
         }
         return false;

@@ -43,6 +43,7 @@ public class Step2 extends WizardStep {
         tv= (TextView) ll.findViewById(R.id.step2_textView);
         lv= (ListView) ll.findViewById(R.id.step2_listView);
         tv.setText(R.string.step2);
+        ll.setPadding(5,5,5,5);
         return ll;
     }
 

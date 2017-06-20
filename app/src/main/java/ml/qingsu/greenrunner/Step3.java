@@ -17,24 +17,20 @@ import android.widget.TextView;
 import org.codepond.wizardroid.WizardStep;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-/**
- * Created by Administrator on 17-6-19.
- */
 public class Step3 extends WizardStep {
     TextView tv;
     private static final String TAG="aa";
-    private static boolean isRun=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         tv = new TextView(MyApplication.getInstance());
         tv.setText(R.string.step3);
+        tv.setPadding(5,5,5,5);
         Log.d(TAG, "onCreateView() called with: " + "inflater = [" + inflater + "], container = [" + container + "], savedInstanceState = [" + savedInstanceState + "]");
         return tv;
     }
@@ -43,13 +39,12 @@ public class Step3 extends WizardStep {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         Log.d(TAG, "setUserVisibleHint() called with: " + "isVisibleToUser = [" + isVisibleToUser + "]");
-        if (isVisibleToUser) {
-
+             if (isVisibleToUser) {
             notifyIncomplete();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    isRun=true;
+                    MyApplication.CrashHandler.getInstance().init(MyApplication.getInstance());
                     int good = 0;
                     PackageManager pm = MyApplication.getInstance().getPackageManager();
                     StringBuilder sb = new StringBuilder();
@@ -136,8 +131,7 @@ public class Step3 extends WizardStep {
                         sb.append("本应用没有Root权限,无法检测");
                     }
                     sb.append("</p><hr />");
-                    //=============================
-                    startActivity(MyApplication.getInstance().getPackageManager().getLaunchIntentForPackage(Step2.selected.packageName));
+
                     sb.append("<h2>综上所述，评定 "+Step2.selected.appName+" "+good*20+"%符合绿色公约要求。</h2><hr /><a href=\"http://green-android.org\">绿色公约官网</a><p>By w568w</p>");
                     try {
                         File_WritetoSDFrom_bytes(sb.toString().getBytes("UTF-8"),"result.html");
@@ -156,14 +150,12 @@ public class Step3 extends WizardStep {
             }).start();
         }
     }
-
     public static String String_Between(String str, String leftstr, String rightstr)
     {
-        if(str.indexOf(leftstr)==-1||str.indexOf(rightstr)==-1)
+        if(!str.contains(leftstr)||!str.contains(rightstr))
             return "";
         int i = str.indexOf(leftstr) + leftstr.length();
-        String temp = str.substring(i, str.indexOf(rightstr,i));
-        return temp;
+        return str.substring(i, str.indexOf(rightstr,i));
     }
     public static void File_WritetoSDFrom_bytes(byte[] data,String filename){
         File f=new File(Environment.getExternalStorageDirectory().getPath()+"/"+filename);
@@ -182,9 +174,7 @@ public class Step3 extends WizardStep {
             fops.write(data);
             fops.flush();
             fops.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
