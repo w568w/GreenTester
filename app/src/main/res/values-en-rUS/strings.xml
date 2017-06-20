@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GreenTester</string>
+    <string name="step1">Welcome! The wizard will help you test whether an application in full compliance with the requirements of green application of the Convention, it will not take you too much time. Click the "Next" button to continue.</string>
+
+    <string name="step2_2">Select the application you want to test in the list, and then click "Next".</string>
+    <string name="step3">The application is being tested and a report is generated later.</string>
+    <string name="step4">The test finished! Please view the report.</string>
+</resources>
