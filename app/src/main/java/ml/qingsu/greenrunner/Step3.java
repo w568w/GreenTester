@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -25,13 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Step3 extends WizardStep {
-    TextView tv;
+    TextView tv= new TextView(MyApplication.getInstance());
     private static final String TAG = "aa";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        tv = new TextView(MyApplication.getInstance());
         tv.setText(R.string.step3);
         tv.setPadding(5, 5, 5, 5);
         Log.d(TAG, "onCreateView() called with: " + "inflater = [" + inflater + "], container = [" + container + "], savedInstanceState = [" + savedInstanceState + "]");
@@ -43,7 +43,6 @@ public class Step3 extends WizardStep {
         super.setUserVisibleHint(isVisibleToUser);
         Log.d(TAG, "setUserVisibleHint() called with: " + "isVisibleToUser = [" + isVisibleToUser + "]");
         if (isVisibleToUser) {
-            notifyIncomplete();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -146,20 +145,44 @@ public class Step3 extends WizardStep {
                         good++;
                     }
                     sb.append("</p><hr />");
-                    //===================
-                    sb.append("<h2>综上所述，评定 " + Step2.selected.appName + " " + (int) (((float) good) / 6 * 100) + "%符合绿色公约要求。</h2><hr /><a href=\"http://green-android.org\">绿色公约官网</a><p>By w568w</p>");
+                    //========================
+                    sb.append("<p>(隐私)加固&emsp;");
+                    try {
+                        System.out.println("start fuck");
+                        ApkUtils au = new ApkUtils(MyApplication.getInstance(), Step2.selected.packageName);
+                        if (!au.contains("qihoo")) {
+                            good++;
+                            sb.append("Passed");
+                        } else {
+                            sb.append("Failed");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        good++;
+                        sb.append("检测失败");
+                    }
+                    sb.append("</p><hr />");
+                    System.out.println("fuck over");
+                    //========================
+                    sb.append("<h2>综上所述，评定 " + Step2.selected.appName + " " + (int) (((float) good) / 7 * 100) + "%符合绿色公约要求。</h2><hr /><a href=\"http://green-android.org\">绿色公约官网</a><p>By w568w</p>");
                     try {
                         File_WritetoSDFrom_bytes(sb.toString().getBytes("UTF-8"), "result.html");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    tv.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            tv.setText(R.string.step4);
-                            notifyCompleted();
-                        }
-                    });
+                    if(tv!=null)
+                        tv.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv.setText(R.string.step4);
+                                notifyCompleted();
+                            }
+                        });
+                    else {
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("file://" + Environment.getExternalStorageDirectory().getPath() + "/result.html")));
+                        }catch (Exception e){}
+                    }
                 }
             }).start();
         }
@@ -213,7 +236,7 @@ public class Step3 extends WizardStep {
     }
 
     private boolean contain(ServiceInfo[] a, String obj) {
-        if(a==null)return false;
+        if (a == null) return false;
         for (ServiceInfo si : a) {
             if (si.name.contains(obj) && si.enabled)
                 return true;
@@ -243,24 +266,12 @@ public class Step3 extends WizardStep {
         List<ResolveInfo> mApps;
         Intent intent = new Intent(action);
         PackageManager pm = MyApplication.getInstance().getPackageManager();
-        mApps = pm.queryBroadcastReceivers(intent, PackageManager.MATCH_ALL);
+        mApps = pm.queryBroadcastReceivers(intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (mApps == null) return false;
         for (ResolveInfo ri : mApps) {
             if (ri.activityInfo.packageName.equals(packageName))
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop() called with: " + "");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called with: " + "");
     }
 }

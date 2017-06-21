@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.codepond.wizardroid.WizardStep;
-import org.codepond.wizardroid.persistence.ContextVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,17 +24,12 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Administrator on 17-6-18.
+ * Created by w568w on 17-6-18.
  */
 public class Step2 extends WizardStep {
-    @ContextVariable
-    private long availMem;
-    @ContextVariable
-    private long TotalMem;
     TextView tv;
     ListView lv;
     int selectPosition;
-
     public static AppInfo selected;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +51,15 @@ public class Step2 extends WizardStep {
                 @Override
                 public void run() {
                     final Context act=MyApplication.getInstance();
-                    ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
+                    ArrayList<AppInfo> appList = new ArrayList<>();
                     PackageManager pm=act.getPackageManager();
                     List<PackageInfo> packages =pm.getInstalledPackages(0);
+                    if(packages==null||packages.size()==0)
+                    {
+                        notifyIncomplete();
+                        Toast.makeText(MyApplication.getInstance(),"请允许本应用读取已安装程序!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     for(int i=0;i<packages.size();i++) {
                         PackageInfo packageInfo = packages.get(i);
                         AppInfo tmpInfo =new AppInfo();
@@ -101,6 +102,9 @@ public class Step2 extends WizardStep {
                                     selected = finalAppList.get(position);
                                 }
                             });
+                            selectPosition = 0;
+                            aa.notifyDataSetChanged();
+                            selected = finalAppList.get(0);
                             notifyCompleted();
                         }
                     });

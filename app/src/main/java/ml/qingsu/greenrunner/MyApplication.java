@@ -1,16 +1,18 @@
 package ml.qingsu.greenrunner;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Looper;
-import android.support.v7.app.AlertDialog;
 import android.text.method.ScrollingMovementMethod;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import im.fir.sdk.FIR;
+
 /**
- * Created by Administrator on 17-6-19.
+ * Created by w568w on 17-6-19.
  */
 public class MyApplication extends Application {
 
@@ -20,7 +22,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;//存储引用
-        CrashHandler.getInstance().init(instance);
+        FIR.init(this);
+        //CrashHandler.getInstance().init(instance);
     }
 
     public static MyApplication getInstance(){

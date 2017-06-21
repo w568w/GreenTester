@@ -4,7 +4,7 @@ import org.codepond.wizardroid.WizardFlow;
 import org.codepond.wizardroid.layouts.BasicWizardLayout;
 
 /**
- * Created by Administrator on 17-6-18.
+ * Created by w568w on 17-6-18.
  */
 public class TutorialWizard extends BasicWizardLayout {
 
@@ -14,15 +14,6 @@ public class TutorialWizard extends BasicWizardLayout {
     public TutorialWizard() {
         super();
     }
-
-    //You must override this method and create a wizard flow by
-    //using WizardFlow.Builder as shown in this example
-
-    @Override
-    public void onWizardComplete() {
-        super.onWizardComplete();
-    }
-
     @Override
     public WizardFlow onSetup() {
 

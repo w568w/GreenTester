@@ -15,4 +15,4 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--keepnames class * { @org.codepond.android.wizardroid.ContextVariable *;}
+#-keepnames class * { @org.codepond.android.wizardroid.ContextVariable *;}
