@@ -24,6 +24,7 @@ import java.util.List;
  * </ul>
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-16
+ * @modifier w568w 2017-6-21
  */
 public class ShellUtils {
 
@@ -100,7 +101,6 @@ public class ShellUtils {
      * @param commands        command list
      * @param isRoot          whether need to run with root
      * @param isNeedResultMsg whether need result msg
-     * @return
      * @see ShellUtils#execCommand(String[], boolean, boolean)
      */
     public static CommandResult execCommand(List<String> commands, boolean isRoot, boolean isNeedResultMsg) {
@@ -163,8 +163,6 @@ public class ShellUtils {
                     errorMsg.append(s);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -189,15 +187,15 @@ public class ShellUtils {
         return new CommandResult(result, successMsg == null ? null : successMsg.toString(), errorMsg == null ? null
                 : errorMsg.toString());
     }
-    /** 判断手机是否root，不弹出root请求框<br/> */
+
+    /**
+     * 判断手机是否root，不弹出root请求框<br/>
+     */
     public static boolean isRoot() {
         String binPath = "/system/bin/su";
         String xBinPath = "/system/xbin/su";
-        if (new File(binPath).exists() && isExecutable(binPath))
-            return true;
-        if (new File(xBinPath).exists() && isExecutable(xBinPath))
-            return true;
-        return false;
+        return ((new File(binPath).exists() && isExecutable(binPath)) ||
+                (new File(xBinPath).exists() && isExecutable(xBinPath)));
     }
 
     private static boolean isExecutable(String filePath) {
@@ -215,13 +213,18 @@ public class ShellUtils {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{
-            if(p!=null){
-                p.destroy();
+        } finally {
+            if (p != null) {
+                try {
+                    p.destroy();
+                } catch (Throwable throwable) {
+                }
+
             }
         }
         return false;
     }
+
     /**
      * result of command
      * <ul>
@@ -247,10 +250,6 @@ public class ShellUtils {
          * error message of command result
          **/
         public String errorMsg;
-
-        public CommandResult(int result) {
-            this.result = result;
-        }
 
         public CommandResult(int result, String successMsg, String errorMsg) {
             this.result = result;
