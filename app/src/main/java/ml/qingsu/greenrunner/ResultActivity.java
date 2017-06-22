@@ -68,6 +68,12 @@ public class ResultActivity extends AppCompatActivity {
         linearLayout.addView(buildItem(getString(R.string.item_alarm_limit),
                 result.getAlarmLimit(),
                 linearLayout));
+        linearLayout.addView(buildItem(getString(R.string.item_ad),
+                result.getAd(),
+                linearLayout));
+        linearLayout.addView(buildItem(getString(R.string.item_protect),
+                result.getProtect(),
+                linearLayout));
         linearLayout.addView(buildFooter(info, result, linearLayout));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(linearLayout);
@@ -120,7 +126,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView textView = (TextView)view.findViewById(android.R.id.text2);
         textView.setText(Html.fromHtml(getString(R.string.item_footer,
                 info.getAppName(),
-                String.valueOf(result.getGood() * 20))));
+                String.valueOf((int) (((float) result.getGood()) / 7 * 100)))));
         return view;
     }
 }

@@ -12,6 +12,8 @@
     <string name="item_special_receiver">(省电、优化)是否注册特殊广播</string>
     <string name="item_background_limit">(优化)后台服务限制</string>
     <string name="item_alarm_limit">(省电)Alarm限制</string>
+    <string name="item_ad">(优化、隐私)广告</string>
+    <string name="item_protect">(隐私)加固</string>
 
     <string name="item_footer">综上所述，评定 &lt;b>%1$s&lt;/b> &lt;b>%2$s&lt;/b>%% 符合绿色公约要求。</string>
 

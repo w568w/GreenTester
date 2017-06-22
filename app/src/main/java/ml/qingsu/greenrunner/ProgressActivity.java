@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.ServiceInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.view.View;
 import com.android.setupwizardlib.SetupWizardLayout;
 import com.android.setupwizardlib.view.NavigationBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -106,10 +108,24 @@ public class ProgressActivity extends AppCompatActivity {
                 } else {
                     result.setTargetNougat(AppResult.STATUS_NOT_PASS);
                 }
+
+                ArrayList<String> al = getActivities(info.getPackageName());
+                if (contains(al, "Ad") || contains(al, "AD") || contains(al, "ad") || contains(al, "Mob")) {
+                    result.setAd(AppResult.STATUS_NOT_PASS);
+                } else if (contain(packageInfo.services, "AD")
+                        || contain(packageInfo.services, "Ad")
+                        || contain(packageInfo.services, "Mob")
+                        || contain(packageInfo.services, "ad")) {
+                    result.setAd(AppResult.STATUS_NOT_PASS);
+                } else {
+                    result.setAd(AppResult.STATUS_PASS);
+                    good++;
+                }
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
                 result.setPrivacyPermission(AppResult.STATUS_FAIL);
                 result.setTargetNougat(AppResult.STATUS_FAIL);
+                result.setAd(AppResult.STATUS_FAIL);
             }
 
             if (isRecevier("android.net.conn.CONNECTIVITY_CHANGE", info.getPackageName()) ||
@@ -159,6 +175,22 @@ public class ProgressActivity extends AppCompatActivity {
                 result.setAlarmLimit(AppResult.STATUS_FAIL);
             }
 
+            try {
+                System.out.println("start fuck");
+                ApkUtils au = new ApkUtils(MyApplication.getInstance(),
+                        info.getPackageName());
+                if (!au.contains("qihoo")) {
+                    good++;
+                    result.setProtect(AppResult.STATUS_PASS);
+                } else {
+                    result.setProtect(AppResult.STATUS_NOT_PASS);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                good++;
+                result.setProtect(AppResult.STATUS_FAIL);
+            }
+
             result.setGood(good);
             return result;
         }
@@ -190,6 +222,24 @@ public class ProgressActivity extends AppCompatActivity {
         return false;
     }
 
+    private boolean contain(ServiceInfo[] a, String obj) {
+        if (a == null) return false;
+        for (ServiceInfo si : a) {
+            if (si.name.contains(obj) && si.enabled)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean contains(ArrayList a, Object o) {
+        if (a == null) return false;
+        for (Object b : a) {
+            if (o.equals(b))
+                return true;
+        }
+        return false;
+    }
+
     private boolean isRecevier(String action, String packageName) {
         List<ResolveInfo> mApps;
         Intent intent = new Intent(action);
@@ -201,5 +251,15 @@ public class ProgressActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    public static ArrayList<String> getActivities(String pn) {
+        ArrayList<String> result = new ArrayList<>();
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.setPackage(pn);
+        for (ResolveInfo info : MyApplication.getInstance().getPackageManager().queryIntentActivities(intent, 0)) {
+            result.add(info.activityInfo.name);
+        }
+        return result;
     }
 }

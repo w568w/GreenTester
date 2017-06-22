@@ -10,10 +10,8 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <meta-data android:value="aa5786d1733cf36741366c48664a5352" android:name="BUG_HD_SDK_GENERAL_KEY" />
-        <activity android:name=".MainActivity">
         android:theme="@style/AppTheme.Wizard">
+        <meta-data android:value="aa5786d1733cf36741366c48664a5352" android:name="BUG_HD_SDK_GENERAL_KEY" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -19,6 +19,8 @@ public class AppResult implements Parcelable {
     private int specialReceiver = STATUS_NOT_PASS;
     private int backgroundLimit = STATUS_NOT_PASS;
     private int alarmLimit = STATUS_NOT_PASS;
+    private int ad = STATUS_NOT_PASS;
+    private int protect = STATUS_NOT_PASS;
 
     public AppResult () {
     }
@@ -30,6 +32,8 @@ public class AppResult implements Parcelable {
         specialReceiver = in.readInt();
         backgroundLimit = in.readInt();
         alarmLimit = in.readInt();
+        ad = in.readInt();
+        protect = in.readInt();
     }
 
     public static final Creator<AppResult> CREATOR = new Creator<AppResult>() {
@@ -105,5 +109,23 @@ public class AppResult implements Parcelable {
         dest.writeInt(specialReceiver);
         dest.writeInt(backgroundLimit);
         dest.writeInt(alarmLimit);
+        dest.writeInt(ad);
+        dest.writeInt(protect);
+    }
+
+    public int getAd() {
+        return ad;
+    }
+
+    public void setAd(int ad) {
+        this.ad = ad;
+    }
+
+    public int getProtect() {
+        return protect;
+    }
+
+    public void setProtect(int protect) {
+        this.protect = protect;
     }
 }
