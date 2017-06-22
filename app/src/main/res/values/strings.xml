@@ -2,7 +2,23 @@
     <string name="app_name">绿色应用公约测试</string>
     <string name="step1">欢迎！本向导将帮助您测试一个应用是否完全符合绿色应用公约要求，这不会花费您太多时间。单击"Next"按钮以继续。</string>
     <string name="step2">正在收集您的设备信息&#8230;</string>
-    <string name="step2_2">在列表选择您要测试的应用，然后单击"Next"。</string>
-    <string name="step3">正在对应用进行测试&#8230;稍后将生成一份报表。</string>
-    <string name="step4">测试完毕！请查看报表。</string>
+    <string name="step2_2">选择要测试的应用</string>
+    <string name="step3">正在测试</string>
+    <string name="step4">测试完毕</string>
+
+    <string name="item_target_nougat">(优化)Target SDK Version >= 24</string>
+    <string name="item_privacy_permission">(隐私)READ_PHONE_STATE权限请求</string>
+    <string name="item_special_receiver">(省电、优化)是否注册特殊广播</string>
+    <string name="item_background_limit">(优化)后台服务限制</string>
+    <string name="item_alarm_limit">(省电)Alarm限制</string>
+
+    <string name="item_footer">综上所述，评定 &lt;b>%1$s&lt;/b> &lt;b>%2$s&lt;/b>%% 符合绿色公约要求。</string>
+
+    <string name="pass">Pass</string>
+    <string name="not_pass">Fail</string>
+    <string name="fail">Check Fail, no root access?</string>
+
+    <string name="exit">Exit</string>
+
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">应用崩溃了，当然是选择原谅ta啦！</string>
 </resources>
