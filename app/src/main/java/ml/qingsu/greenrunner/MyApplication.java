@@ -5,7 +5,6 @@ import android.app.Application;
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 
-import im.fir.sdk.FIR;
 
 /**
  * Created by w568w on 17-6-19.
@@ -22,7 +21,7 @@ public class MyApplication extends Application {
                 .errorDrawable(R.drawable.doge_lv)
                 .showErrorDetails(true)
                 .apply();
-        FIR.init(this);
+        
     }
 
     public static MyApplication getInstance(){

@@ -14,7 +14,7 @@
     <string name="item_alarm_limit">(省电)Alarm限制</string>
     <string name="item_ad">(优化、隐私)广告</string>
     <string name="item_protect">(隐私)加固</string>
-
+	
     <string name="item_footer">综上所述，评定 &lt;b>%1$s&lt;/b> &lt;b>%2$s&lt;/b>%% 符合绿色公约要求。</string>
 
     <string name="pass">Pass</string>
@@ -23,5 +23,6 @@
 
     <string name="exit">Exit</string>
 
+	<string name="about_desc">一个还不错的应用评测工具</string>
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">应用崩溃了，当然是选择原谅ta啦！</string>
 </resources>

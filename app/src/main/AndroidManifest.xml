@@ -27,5 +27,8 @@
             android:name="cat.ereza.customactivityoncrash.activity.DefaultErrorActivity"
             android:process=":error_activity"
             android:theme="@style/AppTheme"/>
+		<activity android:name=".AboutActivity"
+			android:theme="@style/AppTheme.MaterialAboutActivity.Light.CustomCardView"
+			/>
     </application>
 </manifest>
