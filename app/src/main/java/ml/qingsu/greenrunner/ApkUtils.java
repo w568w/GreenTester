@@ -13,7 +13,6 @@ import dalvik.system.DexFile;
 
 /**
  * Created by w568w on 17-6-21.
- * 深入APK底层，干它丫的
  * 参考http://blog.csdn.net/do2jiang/article/details/8492329
  */
 public class ApkUtils {

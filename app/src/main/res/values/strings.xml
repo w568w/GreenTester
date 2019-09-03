@@ -7,13 +7,13 @@
     <string name="step3">正在测试</string>
     <string name="step4">测试完毕</string>
 
-    <string name="item_target_nougat">(优化)Target SDK Version >= 24</string>
-    <string name="item_privacy_permission">(隐私)READ_PHONE_STATE权限请求</string>
+    <string name="item_target_nougat">(优化)Target SDK Version >= 26</string>
+    <string name="item_privacy_permission">(隐私)READ_PHONE_STATE/EXTERNAL_STORAGE权限请求</string>
     <string name="item_special_receiver">(省电、优化)是否注册特殊广播</string>
     <string name="item_background_limit">(优化)后台服务限制</string>
-    <string name="item_alarm_limit">(省电)Alarm限制</string>
-    <string name="item_ad">(优化、隐私)广告</string>
-    <string name="item_protect">(隐私)加固</string>
+    <string name="item_alarm_limit">(省电)Alarm限制(需要ROOT)</string>
+    <string name="item_ad">(优化、隐私)应用内广告</string>
+    <string name="item_protect">(隐私)第三方加固</string>
 	
     <string name="item_footer">综上所述，评定 &lt;b>%1$s&lt;/b> &lt;b>%2$s&lt;/b>%% 符合绿色公约要求。</string>
 

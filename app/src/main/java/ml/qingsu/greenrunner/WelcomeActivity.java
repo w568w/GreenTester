@@ -17,6 +17,7 @@ import android.support.v7.widget.*;
 import android.widget.Button;
 import android.widget.PopupMenu.*;
 import android.view.*;
+import android.transition.*;
 
 /**
  * Created by Trumeet on 2017/6/21.
@@ -52,47 +53,15 @@ public class WelcomeActivity extends AppCompatActivity {
         layout.addView(textView);
         setContentView(Utils.initWizard(layout));
 		Button more=layout.getNavigationBar().getMoreButton();
-		final PopupMenu menu=new PopupMenu(this, more);
-//		menu.getMenu().add("About").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-//
-//				@Override
-//				public boolean onMenuItemClick(MenuItem p1) {
-//					// TODO: Implement this method
-//					try {
-//						startActivity(new Intent(Intent.ACTION_VIEW,
-//												 Uri.parse("https://github.com/w568w/GreenTester")));
-//					}
-//					catch (ActivityNotFoundException ignore) {}
-//					return false;
-//				}
-//			});
-		menu.getMenu().add("About").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
-
-				@Override
-				public boolean onMenuItemClick(MenuItem p1) {
-					// TODO: Implement this method
-					startActivity(new Intent(WelcomeActivity.this,AboutActivity.class));
-					return false;
-				}
-			});
-        layout.getNavigationBar().getMoreButton().setOnClickListener(new View.OnClickListener() {
+		more.setVisibility(View.VISIBLE);
+		more.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					menu.show();
+					startActivity(new Intent(WelcomeActivity.this,AboutActivity.class));
 
 				}
 			});
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getPackageManager().resolveActivity(new Intent(Intent.ACTION_VIEW,
-														   Uri.parse("https://github.com/w568w/GreenTester")),
-												PackageManager.MATCH_DEFAULT_ONLY) == null) {
-            layout.getNavigationBar().getMoreButton().setVisibility(View.GONE);
-        } else {
-            layout.getNavigationBar().getMoreButton().setVisibility(View.VISIBLE);
-        }
-    }
+    
 }
