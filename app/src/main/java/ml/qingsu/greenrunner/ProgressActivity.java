@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * Created by Trumeet on 2017/6/21.
+ *
  * @author Trumeet
  */
 
@@ -30,7 +31,7 @@ public class ProgressActivity extends AppCompatActivity {
     private static final String TAG = ProgressActivity.class.getSimpleName();
 
     public static final String EXTRA_APP = ProgressActivity.class
-	.getName() + ".EXTRA_APP";
+            .getName() + ".EXTRA_APP";
 
     private CheckTask mTask;
     private SetupWizardLayout layout;
@@ -63,14 +64,14 @@ public class ProgressActivity extends AppCompatActivity {
 
     private void setResultAndFinish(AppResult result) {
         startActivity(new Intent(ProgressActivity.this,
-								 ResultActivity.class)
-					  .putExtra(ResultActivity.EXTRA_APP, info)
-					  .putExtra(ResultActivity.EXTRA_RESULT, result));
+                ResultActivity.class)
+                .putExtra(ResultActivity.EXTRA_APP, info)
+                .putExtra(ResultActivity.EXTRA_RESULT, result));
         finish();
     }
 
     private class CheckTask extends AsyncTask<AppInfo,
-	Void, AppResult> {
+            Void, AppResult> {
 
 
         @Override
@@ -92,12 +93,12 @@ public class ProgressActivity extends AppCompatActivity {
 
             try {
                 PackageInfo packageInfo = getPackageManager()
-					.getPackageInfo(info.getPackageName()
-									, PackageManager.GET_PERMISSIONS);
+                        .getPackageInfo(info.getPackageName()
+                                , PackageManager.GET_PERMISSIONS);
                 if (!contains(packageInfo.requestedPermissions
-							  , Manifest.permission.READ_PHONE_STATE)&&!contains(packageInfo.requestedPermissions
-																				 , Manifest.permission.READ_EXTERNAL_STORAGE)&&!contains(packageInfo.requestedPermissions
-																																	   , Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        , Manifest.permission.READ_PHONE_STATE) && !contains(packageInfo.requestedPermissions
+                        , Manifest.permission.READ_EXTERNAL_STORAGE) && !contains(packageInfo.requestedPermissions
+                        , Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     good++;
                     result.setPrivacyPermission(AppResult.STATUS_PASS);
                 } else {
@@ -115,16 +116,15 @@ public class ProgressActivity extends AppCompatActivity {
                 if (contains(al, "Ad") || contains(al, "AD") || contains(al, "ad") || contains(al, "Mob")) {
                     result.setAd(AppResult.STATUS_NOT_PASS);
                 } else if (contain(packageInfo.services, "AD")
-						   || contain(packageInfo.services, "Ad")
-						   || contain(packageInfo.services, "Mob")
-						   || contain(packageInfo.services, "ad")) {
+                        || contain(packageInfo.services, "Ad")
+                        || contain(packageInfo.services, "Mob")
+                        || contain(packageInfo.services, "ad")) {
                     result.setAd(AppResult.STATUS_NOT_PASS);
                 } else {
                     result.setAd(AppResult.STATUS_PASS);
                     good++;
                 }
-            }
-			catch (PackageManager.NameNotFoundException e) {
+            } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
                 result.setPrivacyPermission(AppResult.STATUS_FAIL);
                 result.setTargetNougat(AppResult.STATUS_FAIL);
@@ -132,11 +132,11 @@ public class ProgressActivity extends AppCompatActivity {
             }
 
             if (isRecevier("android.net.conn.CONNECTIVITY_CHANGE", info.getPackageName()) ||
-				isRecevier("android.hardware.action.NEW_PICTURE", info.getPackageName()) ||
-				isRecevier("android.hardware.action.NEW_VIDEO", info.getPackageName()) ||
-				isRecevier("android.net.wifi.SCAN_RESULTS", info.getPackageName()) ||
-				isRecevier("android.intent.action.USER_PRESENT", info.getPackageName()) ||
-				isRecevier("android.intent.action.ACTION_POWER_DISCONNECTED", info.getPackageName())) {
+                    isRecevier("android.hardware.action.NEW_PICTURE", info.getPackageName()) ||
+                    isRecevier("android.hardware.action.NEW_VIDEO", info.getPackageName()) ||
+                    isRecevier("android.net.wifi.SCAN_RESULTS", info.getPackageName()) ||
+                    isRecevier("android.intent.action.USER_PRESENT", info.getPackageName()) ||
+                    isRecevier("android.intent.action.ACTION_POWER_DISCONNECTED", info.getPackageName())) {
                 result.setSpecialReceiver(AppResult.STATUS_NOT_PASS);
             } else {
                 good++;
@@ -144,7 +144,7 @@ public class ProgressActivity extends AppCompatActivity {
             }
 
             // TODO: getRunningServices had already deprecated after 5.0
-			// Above 5.0,it will always be PASS.
+            // Above 5.0,it will always be PASS.
             ActivityManager mActivityManager = (ActivityManager) MyApplication.getInstance().getSystemService(Context.ACTIVITY_SERVICE);
             List<ActivityManager.RunningServiceInfo> a = mActivityManager.getRunningServices(Integer.MAX_VALUE);
             if (!contain(a, info.getPackageName())) {
@@ -155,7 +155,7 @@ public class ProgressActivity extends AppCompatActivity {
             }
 
             if (ShellUtils.isRoot()) {
-                ShellUtils.CommandResult cr=ShellUtils.execCommand("dumpsys alarm", true, true);
+                ShellUtils.CommandResult cr = ShellUtils.execCommand("dumpsys alarm", true, true);
                 if (cr.result == 0) {
                     String top = String_Between(cr.successMsg, "Top Alarms:", "Alarm Stats:");
                     if (!top.contains(info.getPackageName())) {
@@ -180,22 +180,21 @@ public class ProgressActivity extends AppCompatActivity {
             try {
                 System.out.println("start fuck");
                 ApkUtils au = new ApkUtils(MyApplication.getInstance(),
-										   info.getPackageName());
-				boolean contained=false;
-				for (String key:Data.PROTECT_KEY_WORDS) {
-					if (au.contains(key)) {
-						contained = true;
-						break;
-					}
-				}
+                        info.getPackageName());
+                boolean contained = false;
+                for (String key : Data.PROTECT_KEY_WORDS) {
+                    if (au.contains(key)) {
+                        contained = true;
+                        break;
+                    }
+                }
                 if (!contained) {
                     good++;
                     result.setProtect(AppResult.STATUS_PASS);
                 } else {
                     result.setProtect(AppResult.STATUS_NOT_PASS);
                 }
-            }
-			catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 good++;
                 result.setProtect(AppResult.STATUS_FAIL);
@@ -205,6 +204,7 @@ public class ProgressActivity extends AppCompatActivity {
             return result;
         }
     }
+
     public static String String_Between(String str, String leftstr, String rightstr) {
         if (str.indexOf(leftstr) == -1 || str.indexOf(rightstr) == -1)
             return "";
@@ -214,7 +214,7 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     private boolean contain(List<ActivityManager.RunningServiceInfo> array, String obj) {
-        if (array == null)return false;
+        if (array == null) return false;
         for (ActivityManager.RunningServiceInfo o : array) {
             if (!o.foreground && o.service.getPackageName().equals(obj))
                 return true;

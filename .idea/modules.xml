@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GreenRunner.iml" filepath="$PROJECT_DIR$/GreenRunner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GreenTester.iml" filepath="$PROJECT_DIR$/GreenTester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudioProjects.iml" filepath="$PROJECT_DIR$/StudioProjects.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/setupwizardlib/setupwizardlib.iml" filepath="$PROJECT_DIR$/setupwizardlib/setupwizardlib.iml" />
     </modules>

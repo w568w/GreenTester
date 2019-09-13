@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">绿色应用测试</string>
-    <string name="step1">欢迎！本向导将帮助您测试一个应用是否完全符合绿色应用要求，这不会花费您太多时间。单击"Next"按钮以继续。
+    <string name="step1">欢迎！本向导将帮助您测试一个应用是否完全符合绿色应用要求，这不会花费您太多时间。\n单击"Next"按钮以继续。
     注意:您最好在使用前先运行一次该应用,按压Home键将其转入后台，以保证测试结果准确。</string>
     <string name="step2">正在收集您的设备信息&#8230;</string>
     <string name="step2_2">选择要测试的应用</string>
