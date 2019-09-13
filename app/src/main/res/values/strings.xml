@@ -25,4 +25,15 @@
 
 	<string name="about_desc">一个还不错的应用评测工具</string>
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">应用崩溃了，当然是选择原谅ta啦！</string>
+    <string name="about_version">版本</string>
+    <string name="about_builder">构建</string>
+    <string name="about_build_desc">Android Studio 3.5 Build #AI-191.8026.42.35.5791312, built on August 9, 2019</string>
+    <string name="developer">开发者</string>
+    <string name="w568w">\@w568w</string>
+    <string name="about_w568w_desc">The main developer</string>
+    <string name="trumeet">\@Trumeet</string>
+    <string name="about_trumeet_desc">Material UI</string>
+    <string name="acknowledgement">鸣谢</string>
+    <string name="green_android">Green Android</string>
+    <string name="about_green_android_desc">提供评测规范(草案)</string>
 </resources>

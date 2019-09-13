@@ -206,11 +206,10 @@ public class ProgressActivity extends AppCompatActivity {
     }
 
     public static String String_Between(String str, String leftstr, String rightstr) {
-        if (str.indexOf(leftstr) == -1 || str.indexOf(rightstr) == -1)
+        if (!str.contains(leftstr) || !str.contains(rightstr))
             return "";
         int i = str.indexOf(leftstr) + leftstr.length();
-        String temp = str.substring(i, str.indexOf(rightstr, i));
-        return temp;
+        return str.substring(i, str.indexOf(rightstr, i));
     }
 
     private boolean contain(List<ActivityManager.RunningServiceInfo> array, String obj) {
